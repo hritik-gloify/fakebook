@@ -1,0 +1,32 @@
+<% if post.id.present? %>
+  <section id="posts-list" style="text-align:center;">
+    <div class="card" style="width: 30rem;margin: 0 auto;">
+      <% if post.image.attached? %>
+        <%= image_tag url_for(post.image), width: "10%", class:"card-img-top" %><br>
+      <% end %>
+      <div class="card-body" style="text-align: left;">
+        <h5 class="card-title"><%= post.content %></h5>
+        <p class="card-text"><%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%> <span style="float:right;"><%= post.comments.count %> <%= (post.comments.count) == 1 ? 'Comment' : 'Comments'%></span></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <% post.comments.each do |comment| %>
+            <%= link_to comment.user.username, comment.user %> <%= comment.text%>   
+            <span class="text-muted"><%= time_ago_in_words(comment.created_at) %> ago.</span>  
+
+            <% if authenticated_comment?(comment.user.username) %>
+              <span style="float:right;"><%= button_to "Delete", post_comment_path(post, comment), method: :delete, class: "btn btn-link btn-sm", style: "color: red;" %></span>
+            <% end %>
+            <br>
+          <% end %>
+        </li>
+      </ul>
+      <div class="card-body">
+        <% if authenticated_user? %>
+          <%= link_to "Delete", post, method: :delete, data: { confirm: "You sure?" }, class:"btn btn-outline-danger" %>
+        <% end %>
+      </div>
+    </div>
+    <br>
+  </section>
+<% end %>

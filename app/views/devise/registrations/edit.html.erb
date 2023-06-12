@@ -1,0 +1,59 @@
+<div style="padding: 2rem">
+  <h2 style="color: blue">Edit <%= resource_name.to_s.humanize %></h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <b><%= f.label :email, :style => "margin: 0px 144px 10px 17px;" %></b>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", :disabled => true, :style => "margin: 0px 17px 10px 17px;" %>
+
+      <b><%= f.label :name, :style => "margin: 0px 17px 10px 37px;" %></b>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", :style => "margin: 0px 17px 10px 10px;" %>
+    </div>
+
+    <div class="field">
+      <b><%= f.label :username, :style => "margin: 0px 110px 10px 17px;" %></b>
+      <%= f.text_field :username, autofocus: true, autocomplete: "username", :style => "margin: 0px 17px 10px 17px;" %>
+    </div>
+
+    <div class="field">
+      <h4><%= f.label :profile_picture, :style => "margin: 0px 5px 10px 17px;color: green" %></h4>
+      <%= image_tag f.object.profile_picture, :style => "width: 10%; border: 1px solid;" if f.object.profile_picture.present? %>
+      <%= f.file_field :profile_picture, class: "form-control", :style => "width: 15%; margin: 5px 0px 30px 0px;" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+    <br>
+
+    <h3 style="color: blue">Change Password.</h3>
+    <div class="field">
+      <b><%= f.label :new_password, :style => "margin: 0px 77px 10px 17px;" %></b>
+      <%= f.password_field :new_password, autocomplete: "new-password", placeholder: "Minimum 6 characters", :style => "margin: 0px 17px 10px 17px;" %>
+    </div>
+
+    <div class="field">
+      <b><%= f.label :password_confirmation, :style => "margin: 0px 17px 10px 17px;" %></b>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Same as new password", :style => "margin: 0px 17px 10px 17px;" %>
+    </div>
+
+    <div class="field">
+      <b><%= f.label :current_password, :style => "margin: 0px 56px 10px 17px;" %></b>
+      <%= f.password_field :current_password, autocomplete: "current-password", :style => "margin: 0px 17px 10px 17px;" %>
+    </div>
+
+    <div class="actions" style="margin: 30px 17px 30px 300px;">
+      <%= f.submit "Update", class: 'btn btn-success' %>
+    </div>
+  <% end %>
+
+  <h3 style="color: blue">Cancel my account</h3>
+
+  <div style="padding: 20px;">
+    <%= button_to "Delete Account", registration_path(resource_name), class: "btn btn-danger", data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %>
+  </div>
+
+  <%= link_to "Back", :back, class: "btn btn-outline-dark" %>
+</div>

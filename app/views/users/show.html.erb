@@ -1,0 +1,24 @@
+<div class= "container-fluid" style="padding: 3rem;">
+
+  <div class= "row">
+    <div class= "col-md-4 col-sm-12">
+      <div class="card" style="width: 18rem;">
+        <% if @user.profile_picture.attached? %>
+          <%= image_tag url_for(@user.profile_picture), width: "10%", class: "card-img-top" %>
+        <% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= @user.username %></h5>
+          <p class="card-text"><%= @user.email %></p>
+        </div>
+      </div>
+      <br>
+      <h3>New Post</h3>
+      <%= render 'shared/newpost' %>
+    </div>
+    
+    <div class="col-md-8 post-info text-center">
+      <h3>Posts (<%= @user.posts.count %>)</h3>
+        <%= render @posts %>
+    </div>
+  </div>
+</div>

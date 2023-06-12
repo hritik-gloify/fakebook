@@ -1,0 +1,9 @@
+
+<%= form_for(@post) do |f| %>
+  <div class="field" style="margin-top: 30px;">
+    <%= f.file_field :image %><br>
+    <%= f.text_area :content, placeholder: "What are you thinking..." %>
+  </div>
+  <%= f.submit "Publish", class: "btn btn-primary btn-publish" %>
+<% end %>
+

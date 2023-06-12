@@ -1,0 +1,58 @@
+<% if @posts.present? %>
+  <div class="index-list text-center" style="padding: 2rem;">
+    <% @posts.each do |post| %>
+      <div class="card" style="width: 30rem;margin: 0 auto;background-color: #c5c5c5">
+        <h5 class="card-title" style="text-align: left;">
+          <% if post.user.profile_picture.attached? %>
+            <%= image_tag url_for(post.user.profile_picture), width: "10%", style: "border-radius: 50%;" %>
+          <% end %>
+          <b><%= link_to post.user.username, post.user %></b>
+        </h5>
+        <% if post.image.attached? %>
+          <%= image_tag url_for(post.image), width: "20%", class: "card-img-top" %>
+        <% end %>
+        <div class="card-body" style="text-align: left;">
+          <span class="text-muted" style="float: right;"><%= time_ago_in_words(post.created_at) %> ago. </span>
+          <p class="card-text"><b><%= post.content %></b></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" style="text-align: left;background-color: #c5c5c5">
+            <% if like_unlike(post) %>
+              <%= button_to 'Unlike', post_like_path(post, like_unlike(post)), method: :delete, class: "btn btn-warning" %>
+            <% else %>
+              <%= button_to 'Like', post_likes_path(post), method: :post, class: "btn btn-info" %>
+            <% end %> 
+            <span>
+              <%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%> <span style="float:right;"><%= post.comments.count %> <%= (post.comments.count) == 1 ? 'Comment' : 'Comments'%></span></span>
+          </li>
+          <li class="list-group-item" style="background-color: #c5c5c5">
+            <% post.comments.each do |comment| %>
+              <div>
+                <%= link_to comment.user.username, comment.user %> <%= comment.text%>   
+                <span class="text-muted"><%= time_ago_in_words(comment.created_at) %> ago.</span>  
+
+                <% if authenticated_comment?(comment.user.username) %>
+                  <span style="float:right;"><%= button_to "Delete", post_comment_path(post, comment), method: :delete, class: "btn btn-link btn-sm", style: "color: red;" %></span>
+                <% end %>
+              </div>
+              <br>
+            <% end %>
+          </li>
+          <li class="list-group-item" style="background-color: #c5c5c5">
+            <%= form_for(post.comments.new, url: post_comments_path(post)) do |f| %>
+              <div class="field field-comment">
+                  <%= f.text_field :text, placeholder: "Write a comment...." %>
+              </div>
+                <%= f.submit "Comment.", class: "btn btn-primary btn-publish-comment" %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+      <br>
+    <% end %>
+  </div>
+<% else %>
+  <div style="padding: 2rem; text-align: center">
+    <h3>Start Posting and make some friends. </h3>
+  </div>
+<% end %>

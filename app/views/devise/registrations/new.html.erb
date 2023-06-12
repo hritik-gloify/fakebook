@@ -1,0 +1,46 @@
+<div style="padding: 2rem;">
+  <h2>Sign up</h2>
+  <div style="padding: 2rem;">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <b><%= f.label :name, class: "required-field" %></b>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", :required => true, :style => "margin: 0px 45px 10px 17px;" %>
+
+        <b><%= f.label :username, class: "required-field" %></b>
+        <%= f.text_field :username, autofocus: true, autocomplete: "username", :required => true, :style => "margin: 0px 17px 10px 17px;" %>
+      </div>
+
+      <div class="field">
+        <b><%= f.label :email, class: "required-field" %></b>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", :required => true, :style => "margin: 0px 47px 10px 17px;" %>
+
+        <b><%= f.label :interest %></b>
+        <%= f.text_field :interest, autofocus: true, autocomplete: "interest", :style => "margin: 0px 17px 10px 17px;" %>
+
+        <b><%= f.label :age %></b>
+        <%= f.number_field :age, autofocus: true, autocomplete: "age", :style => "width: 5%; margin: 0px 17px 10px 17px;" %>
+      </div>
+
+      <div class="field">
+        <b><%= f.label :password, class: "required-field" %></b>
+        <%= f.password_field :password, autocomplete: "new-password", :required => true, placeholder: "Minimum 6 characters", :style => "margin: 0px 17px 10px 17px;" %>
+      
+        <b><%= f.label :password_confirmation, class: "required-field" %></b>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", :required => true, :style => "margin: 0px 17px 10px 17px;" %>
+      </div>
+
+      <div class="field">
+        <b><%= f.label :profile_picture, :style => "margin-top: 30px" %></b>
+        <%= f.file_field :profile_picture, class: "form-control", :style => "width: 30%; margin: 5px 0px 30px 0px;" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Sign up", class: "btn btn-success", :style => "margin: 0px 17px 10px 17px;" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div style="padding: 2rem">
+  <div class="row align-items-start">
+    <div class="col">
+      <div class="row g-2">
+        <% @users.each do |user| %>
+          <div class="col">
+            <div class="card h-100 mb-3" style="width: 20rem;background-color: #F2F3F2;">
+              <% if user.profile_picture.attached? %>
+                <%= image_tag url_for(user.profile_picture), style: "max-width: 320px" %>
+              <% else %>
+                <%= image_tag('/user-placeholder.png') %>
+              <% end %>
+              <div class="card-body">
+              </div>
+              <div class="card-footer">
+                <h4 style="color: gray"><%= link_to user.username, user, style: "color: black" %></h4> 
+                <br>
+                <% if pending_for_accept_my_request(user) %>
+                  <%= button_to 'Cancel Request', friendship_path(finding_friendship_id(user)), method: :delete, class: "btn btn-danger" %> 
+                <% elsif pending_for_me_to_accept(user) %>
+                  <div>
+                    <span style="float: right;"><%= button_to 'Cancel Request',friendship_path(finding_friendship_id(user)), method: :delete, class: "btn btn-danger" %></span>
+                    <%= button_to 'Accept Request',edit_friendship_path(finding_friendship_id(user)), method: :get, class: "btn btn-info" %> 
+                  </div>
+                <% elsif we_are_friends(user)  %>
+                  <span style="float: right;"><%= button_to 'Remove Friend',friendship_path(finding_friendship_id(user)), method: :delete, class: "btn btn-danger" %> </span>
+                  <%= button_to 'Friend', user, method: :get, class: "btn btn-info", disabled: true %>  
+                <% elsif %>
+                  <%= button_to 'Add Friend', "#{authenticated_root_path}friendship/create/#{user.id}", method: :post, class: "btn btn-success" %>  
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

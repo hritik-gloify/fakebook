@@ -5,6 +5,8 @@
       <div class="card" style="width: 18rem;">
         <% if @user.profile_picture.attached? %>
           <%= image_tag url_for(@user.profile_picture), width: "10%", class: "card-img-top" %>
+        <% else %>
+          <%= image_tag('/user-placeholder.png') %>
         <% end %>
         <div class="card-body">
           <h5 class="card-title"><%= @user.username %></h5>

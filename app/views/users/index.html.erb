@@ -8,7 +8,7 @@
               <% if user.profile_picture.attached? %>
                 <%= image_tag url_for(user.profile_picture), style: "max-width: 320px" %>
               <% else %>
-                <%= image_tag('/user-placeholder.png') %>
+                <%= image_tag ('/user-placeholder.png'), style: "max-width: 320px" %>
               <% end %>
               <div class="card-body">
               </div>

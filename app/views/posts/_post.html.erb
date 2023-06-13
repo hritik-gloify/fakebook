@@ -23,7 +23,7 @@
       </ul>
       <div class="card-body">
         <% if authenticated_user? %>
-          <%= link_to "Delete", post, method: :delete, data: { confirm: "You sure?" }, class:"btn btn-outline-danger" %>
+          <%= button_to "Delete Post", post, method: :delete, class:"btn btn-outline-danger" %>
         <% end %>
       </div>
     </div>

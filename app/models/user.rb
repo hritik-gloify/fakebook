@@ -20,7 +20,7 @@ class User < ApplicationRecord
     Post.where(user: (confirmed_friends + inverse_confirmed_friends + [self]))
   end
 
-  validates :username, presence: true
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
       
       
 end
